@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Learning Management System (LMS)</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <div class="logo">LMS</div>
+        <div id="user-nav" class="hidden flex items-center gap-4">
+            <span id="user-welcome" style="font-weight: 600;"></span>
+            <button class="danger" onclick="logout()">Logout</button>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <!-- AUTHENTICATION VIEW -->
+        <section id="auth-view" class="auth-wrapper">
+            <div class="auth-tabs">
+                <div id="tab-login" class="auth-tab active" onclick="switchAuthTab('login')">Login</div>
+                <div id="tab-signup" class="auth-tab" onclick="switchAuthTab('signup')">Sign Up</div>
+            </div>
+
+            <div id="auth-alert"></div>
+
+            <!-- Login Form -->
+            <form id="login-form" onsubmit="handleLogin(event)">
+                <label>Email Address</label>
+                <input type="email" id="login-email" required placeholder="sarihaddusiddhartha36@gmail.com">
+                <label>Password</label>
+                <input type="password" id="login-password" required placeholder="8341751080">
+                <button type="submit" style="width: 100%;">Login to LMS</button>
+            </form>
+
+            <!-- Signup Form -->
+            <form id="signup-form" class="hidden" onsubmit="handleSignup(event)">
+                <label>Full Name</label>
+                <input type="text" id="signup-name" required placeholder="SARIHADDU SIDDHARTHA">
+                <label>Email Address</label>
+                <input type="email" id="signup-email" required placeholder="sarihaddusiddhartha36@gmail.com">
+                <label>Password</label>
+                <input type="password" id="signup-password" required placeholder="8341751080">
+                <label>Register As</label>
+                <select id="signup-role">
+                    <option value="student">Student</option>
+                    <option value="admin">Instructor / Admin</option>
+                </select>
+                <button type="submit" style="width: 100%;">Create Account</button>
+            </form>
+        </section>
+
+        <!-- ADMIN DASHBOARD -->
+        <section id="admin-dashboard" class="hidden">
+            <div class="dashboard-grid">
+                <div class="sidebar">
+                    <ul>
+                        <li><a class="active" onclick="switchAdminTab('courses', this)">Manage Courses</a></li>
+                        <li><a onclick="switchAdminTab('add-course', this)">Upload New Course</a></li>
+                        <li><a onclick="switchAdminTab('submissions', this)">Student Submissions</a></li>
+                    </ul>
+                </div>
+                <div class="main-content">
+                    <!-- Manage Courses Tab -->
+                    <div id="admin-tab-courses">
+                        <h2>Manage Courses</h2>
+                        <p style="color: var(--text-muted); margin-bottom: 1rem;">View and manage all uploaded curriculum.</p>
+                        <div id="admin-courses-list" class="grid-cards"></div>
+                    </div>
+
+                    <!-- Add Course Tab -->
+                    <div id="admin-tab-add-course" class="hidden">
+                        <h2>Upload New Course & Content</h2>
+                        <p style="color: var(--text-muted); margin-bottom: 1rem;">Publish courses and assignments for students.</p>
+                        <form onsubmit="handleAddCourse(event)">
+                            <label>Course Title</label>
+                            <input type="text" id="course-title" required placeholder="e.g. Full Stack Web Development">
+                            <label>Category / Module</label>
+                            <input type="text" id="course-category" required placeholder="e.g. Web Tech">
+                            <label>Description & Syllabus</label>
+                            <textarea id="course-desc" rows="4" required placeholder="Detailed course description..."></textarea>
+                            <button type="submit">Publish Course</button>
+                        </form>
+                    </div>
+
+                    <!-- Submissions Tab -->
+                    <div id="admin-tab-submissions" class="hidden">
+                        <h2>Student Assignment Submissions</h2>
+                        <p style="color: var(--text-muted); margin-bottom: 1rem;">Review student submissions and award grades/certificates.</p>
+                        <div id="admin-submissions-list"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- STUDENT DASHBOARD -->
+        <section id="student-dashboard" class="hidden">
+            <div class="dashboard-grid">
+                <div class="sidebar">
+                    <ul>
+                        <li><a class="active" onclick="switchStudentTab('browse', this)">Browse Courses</a></li>
+                        <li><a onclick="switchStudentTab('enrolled', this)">My Enrolled Courses</a></li>
+                        <li><a onclick="switchStudentTab('assignments', this)">Assignments & Quizzes</a></li>
+                    </ul>
+                </div>
+                <div class="main-content">
+                    <!-- Browse Courses Tab -->
+                    <div id="student-tab-browse">
+                        <h2>Available Courses</h2>
+                        <p style="color: var(--text-muted); margin-bottom: 1rem;">Explore and enroll in available e-learning programs.</p>
+                        <div id="student-browse-list" class="grid-cards"></div>
+                    </div>
+
+                    <!-- Enrolled Courses Tab -->
+                    <div id="student-tab-enrolled" class="hidden">
+                        <h2>My Enrolled Courses</h2>
+                        <p style="color: var(--text-muted); margin-bottom: 1rem;">Track your learning progress and view materials.</p>
+                        <div id="student-enrolled-list" class="grid-cards"></div>
+                    </div>
+
+                    <!-- Assignments Tab -->
+                    <div id="student-tab-assignments" class="hidden">
+                        <h2>Assignments & Certifications</h2>
+                        <p style="color: var(--text-muted); margin-bottom: 1rem;">Submit completed tasks and download certificates.</p>
+                        <div id="student-assignments-list"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
